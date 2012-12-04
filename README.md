@@ -1,2 +1,1 @@
-resolvers-spec
-==============
+Spec under development, see the [issues](resolvers-spec/issues)
