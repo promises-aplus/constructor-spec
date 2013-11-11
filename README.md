@@ -35,7 +35,8 @@ although the name is implementation-specific.
 var promise = new Promise(resolver);
 ```
 
-1. Can be called without `new`, with the same results.
+1. If `this` is not an instance of `Promise`, the implementation must throw
+   a `TypeError`. [[5.1](#notes)]
 2. `Object.getPrototypeOf(promise) === Promise.prototype` must be true.
 3. `promise.constructor === Promise.prototype.constructor === Promise` must be true.
 4. `Promise.length === 1` must be true.
@@ -77,3 +78,10 @@ If `resolver` throws an exception, call it `e`.
 1. If `promise` is resolved, nothing happens (in particular, no exception may be
    thrown).
 2. Otherwise, reject `promise` with `e` as its rejection reason.
+
+## Notes
+
+1. Specifying otherwise would allow some libraries to not require `Promise` to be
+   called as a constructor, making it hard for a user to switch to one that does.
+   This also matches the behavior of objects, such as `Set` and `Map` being defined
+   in ES6.
